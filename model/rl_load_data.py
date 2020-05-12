@@ -44,7 +44,7 @@ def load_data(dataset_folder_path='./model/dataset/nyse-daily-transformed',
             points_per_cut=252
         )
 
-    #     generate_pairs_data(raw_files_path_pattern, result_path=dataset_folder_path)
+        generate_pairs_data(raw_files_path_pattern, result_path=dataset_folder_path)
         all_pairs_slices = [splitext(f)[0] for f in os.listdir(dataset_folder_path) if isfile(join(dataset_folder_path, f))]
     _logger.info("Total number of pair slices: {}".format(len(all_pairs_slices)))
 

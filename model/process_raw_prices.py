@@ -127,7 +127,7 @@ def generate_pair_df(df1, df2, training_period=52):
 
 
 def generate_pairs_data(raw_files_path_pattern,
-                        result_path="../../dataset/nyse-daily-transformed-1",
+                        result_path="./model/dataset/nyse-daily-transformed-1",
                         points_per_cut=[252,500+52], training_period=52):
     min_size = sum(points_per_cut)
 
@@ -175,7 +175,7 @@ def generate_pairs_data(raw_files_path_pattern,
 
 
 def generate_pairs_training_data(raw_files_path_pattern,
-                                 result_path="../../dataset/nyse-daily-transformed",
+                                 result_path="./model/dataset/nyse-daily-transformed",
                                  points_per_cut=252, min_size=252*4, training_period=52):
 
     nyse_csv_paths = sorted(glob.glob(raw_files_path_pattern))

@@ -107,7 +107,7 @@ def short_portfolio_value(q, p, init_p):
 
 
 def incur_commission(price, qty):
-    return min(max(1, 0.005*qty), 0.01*price*qty)
+    return min(max(1, 0.005*qty), 0.01*price*qty)/50
 
 
 class TradingEnvironment():
@@ -173,8 +173,11 @@ class TradingEnvironment():
         the short side portfolio value <= 0."""
         
         r = np.zeros_like(action, dtype=float)
+
         cur_his = self.history[self.t]
         nex_his = self.history[self.t+1]
+        #cur_his = self.history[self.t-1]
+        #nex_his = self.history[self.t]
         
         # compute for each training instance in a batch
         for i, a in enumerate(action):
@@ -216,6 +219,7 @@ class TradingEnvironment():
                     # initial cash - investment amount and commission
                     self.cash[i] -= (0.5*self.quantity['x'][i]*x_p + self.quantity['y'][i]*y_p
                                      + enter_commission)
+
                 
                 lpv = long_portfolio_value(self.quantity['y'][i], y_p)
                 spv = short_portfolio_value(self.quantity['x'][i], x_p, self.short_side_init_price[i])
@@ -279,7 +283,7 @@ class TradingEnvironment():
                     # we loss all the money in the short side
                     # so need to exit the long side
                     self.port_val_minus_com[i] = (
-                        self.cash[i] + lpv_nex - incur_commission(nex_x_p, self.quantity['x'][i])
+                        self.cash[i] + lpv_nex + spv_nex - incur_commission(nex_x_p, self.quantity['x'][i])
                     )
                     
                     # forced to take position 0. this mean all the assets transformed into cash
