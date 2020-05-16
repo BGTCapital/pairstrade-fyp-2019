@@ -6,8 +6,9 @@ I added datasets used by the authors [here](https://github.com/ScrapeWithYuri/pa
 
 I made one adjustment to the code, and believe another is warranted.
 
-- The [incur_commission](https://github.com/ScrapeWithYuri/pairstrade-fyp-2019/blob/master/model/trading_env.py#L112) script added 10%+ cost over the course of a year. Since the strategy generally executed few trades, I expected this to be lower. Based on my knowledge, this should be 0.25% - 0.50%, so I divided the cost by 50.
-- I believe the [compute reward](https://github.com/ScrapeWithYuri/pairstrade-fyp-2019/blob/master/model/trading_env.py#L175) should include the shorted value to `self.port_val_minus_com[i]` when the shorted value goes below zero by adding `spv_nex`. In a real-world environment, shorted values can go "below zero" (i.e. you owe money to cover the short). I did not make this change to the code though.
+1) The [incur_commission](https://github.com/ScrapeWithYuri/pairstrade-fyp-2019/blob/master/model/trading_env.py#L112) script added 10%+ cost over the course of a year. Since the strategy generally executed few trades, I expected this to be lower. Based on my knowledge, this should be 0.25% - 0.50%, so I divided the cost by 50.
+
+2) I believe the [compute reward](https://github.com/ScrapeWithYuri/pairstrade-fyp-2019/blob/master/model/trading_env.py#L175) should include the shorted value to `self.port_val_minus_com[i]` when the shorted value goes below zero by adding `spv_nex`. In a real-world environment, shorted values can go "below zero" (i.e. you owe money to cover the short). I did not make this change to the code though.
 
 ## pairstrade-fyp-2019
 Final year project at HKUST. We tested 3 main approaches for performing Pairs Trading: 
